@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="browser.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    input {
+      background-color: gray;
+      margin-top: 10vh;
+      padding: 5vw;
+      font-size: large;
+      border-radius: 10%;
+    }
+
+    form {
+      width: 100vw;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      padding-top: 20vh;
+    }
+    input:hover {
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  
+  <form name="publish">
+    <h1>Okos lámpa</h1>
+    <input name="submit_bt" type="submit" value="Send" />
+  </form>
+
+  <script>
+    new PublishForm(document.forms.publish, 'publish');
+    // random url parameter to avoid any caching issues
+    new SubscribePane(document.forms.publish.submit_bt, 'subscribe?random=' + Math.random());
+  </script>
+</body>
+
+</html>
