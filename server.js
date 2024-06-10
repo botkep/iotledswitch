@@ -1,10 +1,10 @@
 let http = require('http');
 let url = require('url');
 let querystring = require('querystring');
-let static = require('node-static');
+// let static = require('node-static');
 const fs = require('fs');
 
-let fileServer = new static.Server('.');
+// let fileServer = new static.Server('.');
 
 let subscribers = Object.create(null);
 
@@ -39,10 +39,8 @@ function accept(req, res) {
   if (urlParsed.pathname == '/subscribe') {
     onSubscribe(req, res);
     return;
-  }
-
-  // sending a message
-  if (urlParsed.pathname == '/publish' && req.method == 'POST') {
+  }// sending a message
+  else if (urlParsed.pathname == '/publish' && req.method == 'POST') {
     // accept POST
     req.setEncoding('utf8');
     let message = '';
@@ -50,11 +48,11 @@ function accept(req, res) {
       message += chunk;
     }).on('end', function () {
       const message_JSON_new = JSON.parse(message);
-      
+
       // data sanitization, validation
       fs.readFile('./adat.json', (err, data) => {
         const message_JSON_old = JSON.parse(data);
-        
+
         if (message_JSON_new.led_switch) {
           message_JSON_old.led = !message_JSON_old.led;
           publish(message_JSON_old); // publish it to everyone
@@ -67,11 +65,25 @@ function accept(req, res) {
       })
     });
 
+
     return;
+  } else if (urlParsed.pathname == '/' && req.method == 'GET') {
+    fs.readFile('./index.html', (err, file) => {
+      res.setHeader('content-type', 'text/html');
+      res.end(file);
+    });
+  } else if (urlParsed.pathname == '/browser.js' && req.method == 'GET') {
+    fs.readFile('./browser.js', (err, file) => {
+      res.setHeader('content-type', 'text/html');
+      res.end(file);
+    });
+  } else {
+    res.setHeader('content-type', 'text/html');
+    res.end("file");
   }
 
   // the rest is static
-  fileServer.serve(req, res);
+  // fileServer.serve(req, res);
 
 }
 
