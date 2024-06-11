@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="browser.js"></script>
   <style>
     * {
       margin: 0;
@@ -13,7 +12,7 @@
     }
 
     input {
-      background-color: gray;
+      /* background-color: gray; */
       margin-top: 10vh;
       padding: 5vw;
       font-size: large;
@@ -25,28 +24,23 @@
       height: 100vh;
       text-align: center;
     }
+
     h1 {
       padding-top: 20vh;
     }
+
     input:hover {
       cursor: pointer;
     }
-
   </style>
 </head>
 
 <body>
-  
-  <form name="publish">
+  <form id="submit" name="publish">
     <h1>Okos lámpa</h1>
-    <input name="submit_bt" type="submit" value="Send" />
+    <input id="submit_bt" name="submit_bt" type="submit" value="Send" />
   </form>
-
-  <script>
-    new PublishForm(document.forms.publish, 'publish');
-    // random url parameter to avoid any caching issues
-    new SubscribePane(document.forms.publish.submit_bt, 'subscribe?random=' + Math.random());
-  </script>
+  <script src="browser.js"></script>
 </body>
 
 </html>

@@ -1,34 +1,26 @@
 let http = require('http');
 let url = require('url');
 let querystring = require('querystring');
-// let static = require('node-static');
 const fs = require('fs');
 
-// let fileServer = new static.Server('.');
 
 let subscribers = Object.create(null);
 
 function onSubscribe(req, res) {
   let id = Math.random();
-
   res.setHeader('Content-Type', 'text/plain;charset=utf-8');
   res.setHeader("Cache-Control", "no-cache, must-revalidate");
-
   subscribers[id] = res;
-
   req.on('close', function () {
     delete subscribers[id];
   });
-
 }
 
 function publish(message_JSON) {
-
   for (let id in subscribers) {
     let res = subscribers[id];
     res.end(JSON.stringify(message_JSON));
   }
-
   subscribers = Object.create(null);
 }
 
@@ -59,6 +51,8 @@ function accept(req, res) {
           fs.writeFile('./adat.json', JSON.stringify(message_JSON_old), () => {
             res.end(JSON.stringify(message_JSON_old));
           })
+        } else if(message_JSON_new.update) {
+          publish(message_JSON_old);
         } else {
           res.end("error");
         }
