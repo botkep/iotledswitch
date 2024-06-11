@@ -62,6 +62,11 @@ function accept(req, res) {
 
 
     return;
+  } else if (urlParsed.pathname == '/getjson' && req.method == 'GET') {
+    fs.readFile('./adat.json', (err, file) => {
+      res.setHeader('content-type', 'application/json; charset=utf-8');
+      res.end(file);
+    });
   } else if (urlParsed.pathname == '/' && req.method == 'GET') {
     fs.readFile('./index.html', (err, file) => {
       res.setHeader('content-type', 'text/html');

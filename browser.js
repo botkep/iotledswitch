@@ -7,10 +7,12 @@ let state = {
 
 window.onload = () => {
   subscribe();
-  window.setTimeout(function () {
-    post({ led_switch: 0, update: 1 });
-    renderbt();
-  }, 200);
+  setstate();
+}
+
+async function setstate() {
+  let response = await fetch('getjson');
+  alert(response);
 }
 
 function renderbt() {
