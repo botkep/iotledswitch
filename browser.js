@@ -12,7 +12,8 @@ window.onload = () => {
 
 async function setstate() {
   let response = await fetch('getjson');
-  alert(response);
+  state.led = response.led;
+  renderbt();
 }
 
 function renderbt() {
