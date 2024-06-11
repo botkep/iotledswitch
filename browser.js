@@ -7,8 +7,10 @@ let state = {
 
 window.onload = () => {
   subscribe();
-  post({ led_switch: 0, update: 1 });
-  renderbt();
+  window.setTimeout(function () {
+    post({ led_switch: 0, update: 1 });
+    renderbt();
+  }, 200);
 }
 
 function renderbt() {

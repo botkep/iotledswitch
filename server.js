@@ -51,8 +51,9 @@ function accept(req, res) {
           fs.writeFile('./adat.json', JSON.stringify(message_JSON_old), () => {
             res.end(JSON.stringify(message_JSON_old));
           })
-        } else if(message_JSON_new.update) {
+        } else if (message_JSON_new.update) {
           publish(message_JSON_old);
+          res.end("ok");
         } else {
           res.end("error");
         }
